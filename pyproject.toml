@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "local-candles"
+version = "0.1.0"
+description = "Candles loaders and cache"
+authors = ["Oleksandr Polieno <polyenoom@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "local_candles"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^2.0.2"
+requests = "^2.31.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
