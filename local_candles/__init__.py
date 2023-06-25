@@ -20,7 +20,7 @@ def load_candles(
 ):
     if not isinstance(start_ts, Time):
         start_ts = Time.from_string(start_ts)
-    if not isinstance(start_ts, Time):
+    if not isinstance(stop_ts, Time):
         stop_ts = Time.from_string(stop_ts)
 
     if not isinstance(source, Source):

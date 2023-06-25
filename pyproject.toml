@@ -1,17 +1,16 @@
 [tool.poetry]
 name = "local-candles"
 version = "0.1.0"
-description = "Candles loaders and cache"
+description = "Candles (ohlc) loaders and cache"
 authors = ["Oleksandr Polieno <polyenoom@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 packages = [{include = "local_candles"}]
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.8"
 pandas = "^2.0.2"
 requests = "^2.31.0"
-
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.3.2"
