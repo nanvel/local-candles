@@ -5,6 +5,8 @@ description = "Candles (ohlc) loaders and cache"
 authors = ["Oleksandr Polieno <polyenoom@gmail.com>"]
 license = "MIT"
 readme = "README.md"
+repository = "https://github.com/nanvel/local-candles"
+keywords = ["quant", "trading", "crypto", "cancles", "ohlc", "ohlcv", "dataframe", "pandas"]
 packages = [{include = "local_candles"}]
 
 [tool.poetry.dependencies]
