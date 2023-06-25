@@ -15,7 +15,8 @@ def load_candles(
     start_ts: Union[Time, str, datetime.datetime],
     stop_ts: Union[Time, str, datetime.datetime],
     columns: Optional[List[str]] = None,
-    **kwargs
+    cache_root: Optional[Union[Path, str]] = None,
+    **source_kwargs
 ):
     if not isinstance(start_ts, Time):
         start_ts = Time.from_string(start_ts)
@@ -23,9 +24,14 @@ def load_candles(
         stop_ts = Time.from_string(stop_ts)
 
     if not isinstance(source, Source):
-        source = SOURCES[source](**kwargs)
+        source = SOURCES[source](**source_kwargs)
 
-    return Data(cache_root=Path()).load_df(
+    if not cache_root:
+        cache_root = Path(".cache")
+    if not isinstance(cache_root, Path):
+        cache_root = Path(cache_root)
+
+    return Data(cache_root=cache_root).load_df(
         source=source,
         start_ts=start_ts,
         stop_ts=stop_ts,
