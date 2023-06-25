@@ -1,5 +1,9 @@
 # Local candles
 
+[![PyPI version](https://badge.fury.io/py/local-candles.svg)](https://badge.fury.io/py/local-candles)
+[![Python Versions](https://img.shields.io/pypi/pyversions/local-candles.svg)](https://pypi.python.org/pypi/local-candles/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Usage example:
 ```python
 from local_candles import load_candles
