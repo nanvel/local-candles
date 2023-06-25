@@ -1,6 +1,6 @@
 import logging
 from pathlib import Path
-from typing import Optional, Tuple
+from typing import List, Optional, Tuple
 
 import pandas as pd
 
@@ -21,7 +21,9 @@ class Data:
 
         self.cache_root = cache_root
 
-    def load_df(self, source: Source, start_ts: Time, stop_ts: Time, fields):
+    def load_df(
+        self, source: Source, start_ts: Time, stop_ts: Time, columns: List[str]
+    ):
         ts = start_ts
         paths = []
 
@@ -49,8 +51,11 @@ class Data:
             else:
                 ts = last_ts + (last_ts - first_ts) / 2
 
+        if "ts" not in columns:
+            columns = ["ts"] + columns
+
         df = pd.concat(
-            (pd.read_csv(p)[fields] for p in paths), ignore_index=True
+            (pd.read_csv(p)[columns] for p in paths), ignore_index=True
         ).drop_duplicates(subset=["ts"])
 
         return (
