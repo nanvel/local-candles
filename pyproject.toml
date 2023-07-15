@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "local-candles"
-version = "0.1.0"
+version = "0.1.1"
 description = "Candles (ohlc) loaders and cache"
 authors = ["Oleksandr Polieno <polyenoom@gmail.com>"]
 license = "MIT"

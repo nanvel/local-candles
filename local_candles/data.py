@@ -28,7 +28,7 @@ class Data:
         paths = []
 
         previous_first_ts = None
-        for i in range(20):
+        while True:
             result = self._load_from_cache(prefix=source.slug, ts=ts)
             if result:
                 first_ts, last_ts, p = result
@@ -37,9 +37,10 @@ class Data:
                 first_ts, last_ts, p, completed = self._load_from_source(
                     source=source, ts=ts
                 )
-                if first_ts == previous_first_ts:
-                    break
-                previous_first_ts = first_ts
+
+            if first_ts == previous_first_ts:
+                break
+            previous_first_ts = first_ts
 
             paths.append(p)
 
