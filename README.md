@@ -11,7 +11,7 @@ from local_candles import load_candles
 
 def main():
     df = load_candles(
-        source="binance_futures_ohlc",
+        source="binance_usdm_futures_ohlc",
         start_ts="2021-01-01",
         stop_ts="2021-02-01",
         interval="1d",

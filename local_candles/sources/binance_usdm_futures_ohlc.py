@@ -13,7 +13,7 @@ from .base import Source
 rate_limiter = RateLimiter(calls_per_seconds=2.0)
 
 
-class BinanceFuturesOHLCSource(Source):
+class BinanceUSDMFuturesOHLCSource(Source):
     base_url = "https://fapi.binance.com/fapi/"
     limit = 500
     field_names = [
@@ -40,7 +40,7 @@ class BinanceFuturesOHLCSource(Source):
 
     @property
     def slug(self):
-        return f"binance_futures_ohlc/{self.symbol.lower()}_{self.interval.to_binance_slug()}"
+        return f"binance_usdm_futures_ohlc/{self.symbol.lower()}_{self.interval.to_binance_slug()}"
 
     def load(self, ts: Time, path: Path) -> (Time, Time, bool):
         """query: start_ts, interval, symbol"""

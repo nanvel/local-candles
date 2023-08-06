@@ -5,12 +5,12 @@ from unittest.mock import Mock, patch
 import pytest
 
 from local_candles.models import Interval, Time
-from local_candles.sources import BinanceFuturesOHLCSource
+from local_candles.sources import BinanceUSDMFuturesOHLCSource
 
 
 @pytest.fixture(scope="module")
 def source():
-    source = BinanceFuturesOHLCSource(
+    source = BinanceUSDMFuturesOHLCSource(
         symbol="BTCUSDT", interval=Interval.from_binance_slug("1h")
     )
     _request = Mock(
@@ -51,7 +51,7 @@ def source():
 
 
 def test_slug(source):
-    assert source.slug == "binance_futures_ohlc/btcusdt_1h"
+    assert source.slug == "binance_usdm_futures_ohlc/btcusdt_1h"
 
 
 def test_request(source):
