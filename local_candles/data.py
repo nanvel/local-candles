@@ -45,7 +45,9 @@ class Data:
                 completed = True
             else:
                 first_ts, last_ts, p, completed = self._load_from_source(
-                    source=source, ts=ts
+                    source=source,
+                    ts=ts,
+                    full_only=reload_latest,
                 )
 
             if first_ts == previous_first_ts:
@@ -75,7 +77,9 @@ class Data:
             .set_index("ts")
         )
 
-    def _load_from_source(self, source: Source, ts: Time) -> (Time, Time, Path, bool):
+    def _load_from_source(
+        self, source: Source, ts: Time, full_only: bool = True
+    ) -> (Time, Time, Path, bool):
         temp_path = self.cache_root / self._build_temp_path(prefix=source.slug, ts=ts)
         temp_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -93,7 +97,7 @@ class Data:
                 last_ts=last_ts,
                 completed=False,
             )
-            if incomplete_path.exists():
+            if incomplete_path.exists() and full_only:
                 incomplete_path.unlink()
 
         logger.info(f"Loaded from {source.slug} {first_ts}..{last_ts}")
