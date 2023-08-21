@@ -42,6 +42,8 @@ class Data:
             )
             if result:
                 first_ts, last_ts, p = result
+                if last_ts is None:
+                    break
                 completed = True
             else:
                 first_ts, last_ts, p, completed = self._load_from_source(
@@ -122,7 +124,7 @@ class Data:
         prefix: str,
         ts: Time,
         full_only: bool = True,
-    ) -> Optional[Tuple[Time, Time, Path]]:
+    ) -> Optional[Tuple[Time, Optional[Time], Path]]:
         second = ts
         for p in (self.cache_root / prefix).glob("*.csv"):
             try:
@@ -135,7 +137,7 @@ class Data:
                     if first_ts <= second:
                         return (
                             Time(first_ts),
-                            Time.from_datetime(datetime.datetime.utcnow()),
+                            None,
                             p,
                         )
 
