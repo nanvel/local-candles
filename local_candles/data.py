@@ -1,3 +1,4 @@
+import datetime
 import logging
 from pathlib import Path
 from typing import List, Optional, Tuple
@@ -22,14 +23,23 @@ class Data:
         self.cache_root = cache_root
 
     def load_df(
-        self, source: Source, start_ts: Time, stop_ts: Time, columns: List[str]
+        self,
+        source: Source,
+        start_ts: Time,
+        stop_ts: Time,
+        columns: List[str],
+        reload_latest: bool = True,
     ):
         ts = start_ts
         paths = []
 
         previous_first_ts = None
         while True:
-            result = self._load_from_cache(prefix=source.slug, ts=ts)
+            result = self._load_from_cache(
+                prefix=source.slug,
+                ts=ts,
+                full_only=reload_latest,
+            )
             if result:
                 first_ts, last_ts, p = result
                 completed = True
@@ -104,17 +114,27 @@ class Data:
         )
 
     def _load_from_cache(
-        self, prefix: str, ts: Time
+        self,
+        prefix: str,
+        ts: Time,
+        full_only: bool = True,
     ) -> Optional[Tuple[Time, Time, Path]]:
         second = ts
         for p in (self.cache_root / prefix).glob("*.csv"):
             try:
                 first_ts, last_ts = p.stem.split("_")
+                first_ts = int(first_ts)
 
                 if not last_ts:
-                    continue
+                    if full_only:
+                        continue
+                    if first_ts <= second:
+                        return (
+                            Time(first_ts),
+                            Time.from_datetime(datetime.datetime.utcnow()),
+                            p,
+                        )
 
-                first_ts = int(first_ts)
                 last_ts = int(last_ts)
 
                 if first_ts <= second <= last_ts:
