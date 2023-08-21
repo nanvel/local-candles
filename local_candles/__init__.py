@@ -16,6 +16,7 @@ def load_candles(
     stop_ts: Union[Time, str, datetime.datetime],
     columns: Optional[List[str]] = None,
     cache_root: Optional[Union[Path, str]] = None,
+    reload_latest: bool = True,
     **source_kwargs
 ):
     if not isinstance(start_ts, Time):
@@ -36,4 +37,5 @@ def load_candles(
         start_ts=start_ts,
         stop_ts=stop_ts,
         columns=columns or ["open", "high", "low", "close", "volume"],
+        reload_latest=reload_latest,
     )
