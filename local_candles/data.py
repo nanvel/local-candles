@@ -43,6 +43,7 @@ class Data:
             if result:
                 first_ts, last_ts, p = result
                 if last_ts is None:
+                    paths.append(p)
                     break
                 completed = True
             else:
